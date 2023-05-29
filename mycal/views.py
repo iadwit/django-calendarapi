@@ -23,7 +23,7 @@ class GoogleCalendarInitView(View):
 
 
  
-        flow.redirect_uri = 'http://localhost:8000/rest/v1/calendar/redirect'
+        flow.redirect_uri = 'https://django-calendarapi.iadwit.repl.co/rest/v1/calendar/redirect'
 
         authorization_url, state = flow.authorization_url(
 
@@ -49,7 +49,7 @@ class GoogleCalendarRedirectView(View):
             scopes=['https://www.googleapis.com/auth/calendar.events'],
             state=state
         )
-        flow.redirect_uri = 'http://localhost:8000/rest/v1/calendar/redirect'
+        flow.redirect_uri = 'https://django-calendarapi.iadwit.repl.co/rest/v1/calendar/redirect'
 
 
         authorization_response = request.build_absolute_uri()
@@ -58,7 +58,7 @@ class GoogleCalendarRedirectView(View):
 
         credentials = flow.credentials
 
-        service = build('calendar', 'v3', credentials=credentials)
+        service = build('calendar', 'v3', credentials=credentials, static_discovery=False)
 
 
         timeMin = '2023-01-01T00:00:00-07:00'
